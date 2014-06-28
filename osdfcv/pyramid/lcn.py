@@ -46,7 +46,8 @@ def lcn_filters(fmaps, depth, width, sigma):
 def lcn_sublayer(image, image_shape, fmaps, pool_depth, width, sigma):
     """
     """
-    b, ch, r, c = image.shape
+    print image_shape
+    print fmaps, pool_depth, width, sigma
     border = width//2
     filters = lcn_filters(fmaps, pool_depth, width, sigma) 
     filter_shape = filters.shape
@@ -75,7 +76,9 @@ def build_pil(im, height, lcns, mode=img.ANTIALIAS):
     assert height == len(lcns), "Not enought filter steps."
 
     for h in xrange(height):
-        lcn = lcns[0](im)
+        lcn = lcns[h](im.reshape(1, 1, im.shape[0], im.shape[1]))
+        lcn = lcn[0, 0, :, :]
+        
         pyr.append(lcn)
 
         pimg = img.fromarray(lcn)
