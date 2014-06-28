@@ -81,7 +81,7 @@ def build_pil(im, height, lcns, mode=img.ANTIALIAS):
         
         pyr.append(lcn)
 
-        pimg = img.fromarray(lcn)
+        pimg = img.fromarray(im)
         dx, dy = pimg.size
         low = pimg.resize((dx/2, dy/2), resample=mode)
 
